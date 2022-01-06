@@ -49,6 +49,10 @@ class HomeViewModel(private val appRepository: MainRepository,private val contex
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)
             }
+        }else{
+            response.body().let {
+                return Resource.Error(response.message())
+            }
         }
         return Resource.Error(response.message())
     }

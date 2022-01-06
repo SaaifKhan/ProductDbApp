@@ -12,7 +12,10 @@ import com.saifkhan.productdbapp.databinding.ItemProductBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class ProductIstAdapter(val onItemClickListener: OnItemClickListener) :
+class ProductIstAdapter(
+   // val onItemClickListener: OnItemClickListener,
+    private val itemClick: (ProductModel) -> Unit
+) :
     ListAdapter<ProductModel, ProductIstAdapter.ViewHolder>(DiffCallBack()) {
 
     var lastSelectedPostion = -1
@@ -26,24 +29,13 @@ class ProductIstAdapter(val onItemClickListener: OnItemClickListener) :
 
     override fun onBindViewHolder(holder: ProductIstAdapter.ViewHolder, position: Int) {
         holder.bind.productModel = getItem(position)
-//        if (!TextUtils.isEmpty(getItem(position).image)) {
-//            Picasso.get().load(getItem(position).image).into(holder.bind.thumbNail, object : Callback {
-//                override fun onSuccess() {
-//                    //  holder.bind.spinKit.visibility = View.GONE
-//                }
-//
-//                override fun onError(e: Exception?) {
-//                    //  holder.bind.spinKit.visibility = View.GONE
-//                }
-//
-//            })
-//        } else {
-//            Picasso.get().load(R.mipmap.ic_launcher).into(holder.bind.thumbNail)
-//        }
 
+        //clickListener
         holder.itemView.setOnClickListener {
             lastSelectedPostion = position
-            onItemClickListener.onItemClick(position, getItem(position))
+          //  onItemClickListener.onItemClick(position, getItem(position))
+            itemClick(getItem(position))
+
         }
     }
 
@@ -66,6 +58,8 @@ class ProductIstAdapter(val onItemClickListener: OnItemClickListener) :
                     oldItem.price.equals(newItem.price) &&
                     oldItem.title.equals(newItem.title)
         }
+
+
 
     }
 

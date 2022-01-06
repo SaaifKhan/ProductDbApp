@@ -2,6 +2,7 @@ package com.saifkhan.completeappdemo.Ui.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import com.saifkhan.completeappdemo.Ui.activity.adapter.ProductIstAdapter
 import com.saifkhan.productdbapp.MainRepository
 import com.saifkhan.productdbapp.R
 import com.saifkhan.productdbapp.Resource
+import com.saifkhan.productdbapp.constants.showSnackBar
 import com.saifkhan.productdbapp.data.models.ProductModel
 import com.saifkhan.productdbapp.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
@@ -21,12 +23,9 @@ class HomeActivity : AppCompatActivity() {
 
 
     val productListAdapter by lazy {
-        ProductIstAdapter(object : ProductIstAdapter.OnItemClickListener {
-            override fun onItemClick(itemPosition: Int, productModel: ProductModel) {
-
-
-            }
-        })
+        ProductIstAdapter { porduct ->
+            Toast.makeText(this,"Clicked!",Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     hideProgressBar()
                     it.message?.let { message ->
-                   //    rootLayout.errorSnack(message, Snackbar.LENGTH_LONG)
+                      rootLayout.showSnackBar("Product Not Found!",duration = Snackbar.LENGTH_SHORT)
                     }
 
                 }

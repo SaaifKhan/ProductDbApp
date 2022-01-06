@@ -5,8 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <data>
+
+    </data>
+
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
+        android:id="@+id/rootLayout"
         android:layout_height="match_parent"
         android:background="@color/colorWhite">
 
@@ -36,6 +42,10 @@
                 <ProgressBar
                     android:id="@+id/progressbar"
                     android:layout_width="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="@color/colorPrimaryDarkLight"
+                    style="?android:attr/progressBarStyleLarge"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
